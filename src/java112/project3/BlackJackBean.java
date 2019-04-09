@@ -78,4 +78,12 @@ public class BlackJackBean {
         }
         return total;
     }
+
+    public boolean isBusted(int[] hand) {
+        if (totalValueOfHand(hand) > 21) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
