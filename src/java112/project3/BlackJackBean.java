@@ -8,6 +8,7 @@ public class BlackJackBean {
     private int[] dealerHand;
     private int[] playerHand;
     private String latestMove;
+    private boolean gameOver;
 
     // Constructor
 
@@ -55,10 +56,16 @@ public class BlackJackBean {
         this.latestMove = value;
     }
 
-    public int drawCard() {
+    public boolean isGameOver() {
+        return this.gameOver;
+    }
+
+    public int drawCard(int[] hand) {
         int[] deck = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         int draw = 0; // TODO pick something at random
-        return deck[draw];
+        int drawnCard = deck[draw];
+        this.latestMove += "draws " + drawnCard + "\n";
+        return drawnCard;
     }
 
     public int numberOfCardsInHand(int[] hand) {
@@ -101,5 +108,36 @@ public class BlackJackBean {
         } else {
             return false;
         }
+    }
+
+    /**
+    * Plays out the next turn, updating the string summarizing the turn
+    * @param playerHit true if the player is drawing, false if they're done
+    */
+    public void nextTurn(boolean playerHit) {
+        if (playerHit) {
+            this.latestMove += "Player ";
+            drawCard(playerHand);
+        } else {
+            this.latestMove += "Player stands.\n";
+            // dealer's turn, draw until busted or over 17
+            while (totalValueOfHand(dealerHand) < 17) {
+                this.latestMove += "Dealer ";
+                drawCard(dealerHand);
+            }
+        }
+    }
+
+    public void endGame() {
+        if (isBusted(dealerHand)) {
+            this.latestMove += "Dealer busted. Player wins!\n";
+        } else if (isPush()) {
+            this.latestMove += "The scores are tied. Push!\n";
+        } else if (totalValueOfHand(playerHand) > totalValueOfHand(dealerHand)) {
+            this.latestMove += "Player wins with " + totalValueOfHand(playerHand);
+        } else {
+            this.latestMove += "Dealer wins with " + totalValueOfHand(dealerHand);
+        }
+        this.gameOver = true;
     }
 }
