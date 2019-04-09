@@ -86,4 +86,12 @@ public class BlackJackBean {
             return false;
         }
     }
+
+    public boolean isPush() {
+        if (totalValueOfHand(playerHand) == totalValueOfHand(dealerHand)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
