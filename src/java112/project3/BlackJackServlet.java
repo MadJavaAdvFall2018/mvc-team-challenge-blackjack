@@ -7,14 +7,14 @@ import javax.servlet.annotation.*;
 
 /**
  * @author Eric Knapp
- * class MvcDemo
+ * class BlackJackServlet
  *
  */
 @WebServlet(
     name = "blackJack",
     urlPatterns = { "/blackJack" }
 )
-public class blackJackServlet extends HttpServlet {
+public class BlackJackServlet extends HttpServlet {
 
     /**
      *  Handles HTTP GET requests.
@@ -26,19 +26,17 @@ public class blackJackServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // String inputName = request.getParameter("yourName");
-        //
-        // BeanOne myBean = new BeanOne();
-        //
-        // myBean.setMySpecialData("You are special, " + inputName);
-        //
-        // request.setAttribute("myCoolBean", myBean);
-        //
-        // String url = "/beanOneDemo.jsp";
-        //
-        // RequestDispatcher dispatcher
-        //         = getServletContext().getRequestDispatcher(url);
-        // dispatcher.forward(request, response);
+        // TODO get the game state from the GET
+
+        BlackJackBean theBean = new BlackJackBean();
+
+        request.setAttribute("blackJackBean", theBean);
+
+        String url = "/blackjack.jsp";
+
+        RequestDispatcher dispatcher
+                = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
 
 
     }
