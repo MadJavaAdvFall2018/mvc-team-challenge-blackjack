@@ -79,6 +79,10 @@ public class BlackJackBean {
         return total;
     }
 
+    /**
+    * Checks if a hand is busted (over 21)
+    * @return true if the hand's value is over 21, false if not
+    */
     public boolean isBusted(int[] hand) {
         if (totalValueOfHand(hand) > 21) {
             return true;
@@ -87,6 +91,10 @@ public class BlackJackBean {
         }
     }
 
+    /***
+    * Checks for a push (a tie)
+    * @return true if scores are tied, false if not
+    */
     public boolean isPush() {
         if (totalValueOfHand(playerHand) == totalValueOfHand(dealerHand)) {
             return true;
