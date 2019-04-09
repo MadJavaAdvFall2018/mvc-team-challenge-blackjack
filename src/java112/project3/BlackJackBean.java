@@ -7,15 +7,18 @@ public class BlackJackBean {
     // instance variables
     private int[] dealerHand;
     private int[] playerHand;
-    private int dealerCardCount;
-    private int playerCardCount;
     private String latestMove;
 
     // Constructor
 
     public BlackJackBean() {
-        dealerHand = new int[5];
-        playerHand = new int[5];
+        this.dealerHand = new int[] {0, 0, 0, 0, 0};
+        this.playerHand = new int[] {0, 0, 0, 0, 0};
+    }
+
+    public BlackJackBean(int[] dealerHand, int[] playerHand) {
+        this.dealerHand = dealerHand;
+        this.playerHand = playerHand;
     }
 
     // getters and setters
@@ -37,19 +40,11 @@ public class BlackJackBean {
     }
 
     public int getDealerCardCount() {
-        return this.dealerCardCount;
-    }
-
-    public void setDealerCardCount(int value) {
-        this.dealerCardCount = value;
+        return numberOfCardsInHand(dealerHand);
     }
 
     public int getPlayerCardCount() {
-        return this.playerCardCount;
-    }
-
-    public void setPlayerCardCount(int value) {
-        this.playerCardCount = value;
+        return numberOfCardsInHand(playerHand);
     }
 
     public String getLatestMove() {
@@ -58,5 +53,29 @@ public class BlackJackBean {
 
     public void setLatestMove(String value) {
         this.latestMove = value;
+    }
+
+    public int drawCard() {
+        int[] deck = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
+        int draw = 0; // TODO pick something at random
+        return deck[draw];
+    }
+
+    public int numberOfCardsInHand(int[] hand) {
+        int total = 0;
+        for (int current: hand) {
+            if (current > 0) {
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public int totalValueOfHand(int[] hand) {
+        int total = 0;
+        for (int current: hand) {
+            total += current;
+        }
+        return total;
     }
 }
