@@ -62,13 +62,13 @@ public class BlackJackBean {
         return this.gameOver;
     }
 
-    public int drawCard(int[] hand) {
+    public void drawCard(int[] hand) {
         int[] deck = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         Random rando = new Random();
         int draw = rando.nextInt(14); // pick a random card from the deck
         int drawnCard = deck[draw];
         this.latestMove += "draws " + drawnCard + "\n";
-        return drawnCard;
+        hand[numberOfCardsInHand(hand)] = drawnCard;
     }
 
     public int numberOfCardsInHand(int[] hand) {
@@ -121,10 +121,11 @@ public class BlackJackBean {
         if (playerHit) {
             this.latestMove += "Player ";
             drawCard(playerHand);
+            // TODO check if player busted or 5-carded
         } else {
             this.latestMove += "Player stands.\n";
             // dealer's turn, draw until busted or over 17
-            while (totalValueOfHand(dealerHand) < 17) {
+            while (totalValueOfHand(dealerHand) < 17 && numberOfCardsInHand(dealerHand) < 5) {
                 this.latestMove += "Dealer ";
                 drawCard(dealerHand);
             }
