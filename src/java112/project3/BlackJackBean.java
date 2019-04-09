@@ -1,3 +1,4 @@
+import java.util.*;
 /**
 * Class containing the state of the blackjack game
 * For Unit 3 MVC challenge
@@ -62,7 +63,8 @@ public class BlackJackBean {
 
     public int drawCard(int[] hand) {
         int[] deck = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
-        int draw = 0; // TODO pick something at random
+        Random rando = new Random();
+        int draw = rando.nextInt(14); // pick a random card from the deck
         int drawnCard = deck[draw];
         this.latestMove += "draws " + drawnCard + "\n";
         return drawnCard;
