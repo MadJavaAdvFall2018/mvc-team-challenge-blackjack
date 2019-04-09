@@ -11,7 +11,7 @@
     <h3>Form/Request Param Demo</h3>
 
 
-    <form action="/java112/request-params" method="GET">
+    <form action="/java112/request-params.jsp" method="GET">
           <input type="text" name="param1" /><br />
           <br />
            <input type="text" name="param2" value="default value" /><br />
