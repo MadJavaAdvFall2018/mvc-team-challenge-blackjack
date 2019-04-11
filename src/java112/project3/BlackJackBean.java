@@ -11,6 +11,8 @@ public class BlackJackBean {
     private ArrayList<Integer> playerHand;
     private String dealerString;
     private String playerString;
+    private int dealerScore;
+    private int playerScore;
     private String latestMove;
     private boolean gameOver;
 
@@ -21,15 +23,16 @@ public class BlackJackBean {
         this.playerHand = new ArrayList<Integer>();
         this.dealerString = dealerHand.toString();
         this.playerString = dealerHand.toString();
-        this.latestMove = "New game!";
+        this.latestMove = "Welcome to Blackjack! Care to try your luck?";
+        this.gameOver = false;
     }
 
     public BlackJackBean(String dealerHand, String playerHand) {
         this.dealerHand = listFromString(dealerHand);
         this.playerHand = listFromString(playerHand);
-        this.dealerString = dealerHand;
-        this.playerString = playerHand;
+        this.updateStatus();
         this.latestMove = "";
+        this.gameOver = false;
     }
 
     // constructor helper
@@ -72,6 +75,21 @@ public class BlackJackBean {
         return this.playerString;
     }
 
+    public int getDealerScore() {
+        return this.dealerScore;
+    }
+
+    public void setDealerScore(int value) {
+        this.dealerScore = value;
+    }
+    public int getPlayerScore() {
+        return this.playerScore;
+    }
+
+    public void setPlayerScore(int value) {
+        this.playerScore = value;
+    }
+
     public String getLatestMove() {
         return this.latestMove;
     }
@@ -80,8 +98,11 @@ public class BlackJackBean {
         this.latestMove = value;
     }
 
-    public boolean isGameOver() {
+    public boolean getGameOver() {
         return this.gameOver;
+    }
+    public void setGameOver(boolean value) {
+        this.gameOver = value;
     }
 
     public void drawCard(ArrayList<Integer> hand) {
@@ -89,10 +110,9 @@ public class BlackJackBean {
         Random rando = new Random();
         int draw = rando.nextInt(13); // pick a random card from the deck
         int drawnCard = deck[draw];
-        this.latestMove += "draws " + drawnCard + "\n";
+        this.latestMove += "draws " + drawnCard + "<br />";
         hand.add(drawnCard);
-        this.dealerString = this.dealerHand.toString();
-        this.playerString = this.playerHand.toString();
+        this.updateStatus();
     }
 
     public int totalValueOfHand(ArrayList<Integer> hand) {
@@ -101,6 +121,13 @@ public class BlackJackBean {
             total += current;
         }
         return total;
+    }
+
+    public void updateStatus() {
+        this.dealerString = this.dealerHand.toString();
+        this.playerString = this.playerHand.toString();
+        this.dealerScore = totalValueOfHand(this.dealerHand);
+        this.playerScore = totalValueOfHand(this.playerHand);
     }
 
     /**
@@ -139,9 +166,9 @@ public class BlackJackBean {
                 endGame();
             }
         } else {
-            this.latestMove += "Player stands.\n";
-            // dealer's turn, draw over 17 or higher than player's score
-            while (totalValueOfHand(dealerHand) < 17 && (totalValueOfHand(dealerHand) < totalValueOfHand(playerHand))) {
+            this.latestMove += "Player stands.<br />";
+            // dealer's turn, draw to 17 or higher than player's score, whichever comes first
+            while (totalValueOfHand(dealerHand) < 17 && (totalValueOfHand(dealerHand) <= totalValueOfHand(playerHand))) {
                 this.latestMove += "Dealer ";
                 drawCard(dealerHand);
             }
@@ -151,11 +178,11 @@ public class BlackJackBean {
 
     public void endGame() {
         if (isBusted(playerHand)) {
-            this.latestMove += "Player busted. Oops.\n";
+            this.latestMove += "Player busted. Oops.<br />";
         } else if (isBusted(dealerHand)) {
-            this.latestMove += "Dealer busted. Player wins!\n";
+            this.latestMove += "Dealer busted. Player wins!<br />";
         } else if (isPush()) {
-            this.latestMove += "The scores are tied. Push!\n";
+            this.latestMove += "The scores are tied. Push!<br />";
         } else if (totalValueOfHand(playerHand) > totalValueOfHand(dealerHand)) {
             this.latestMove += "Player wins with " + totalValueOfHand(playerHand);
         } else {

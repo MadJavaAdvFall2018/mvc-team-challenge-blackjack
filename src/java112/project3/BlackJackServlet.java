@@ -27,6 +27,8 @@ public class BlackJackServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BlackJackBean theBean;
 
+        String url="/blackjack.jsp";
+
         // get the game state from query string
         if (request.getQueryString() != null) {
             String playerHit = request.getParameter("playerHit");
@@ -38,13 +40,12 @@ public class BlackJackServlet extends HttpServlet {
             } else {
                 theBean.nextTurn(false);
             }
+            if (theBean.getGameOver()) {
+                url="/blackjackEnd.jsp";
+            }
         } else {
             theBean = new BlackJackBean();
         }
-
-
-
-        String url="/blackjack.jsp";
 
         request.setAttribute("blackJackBean", theBean);
 
