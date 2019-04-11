@@ -7,20 +7,7 @@
     <body>
 
         <div class="cardTable">
-            <h1>BlackJack</h1>
-
-            ${blackJackBean.latestMove}<br />
-            <br />
-
-            <h2>Dealer Hand</h2>
-            ${blackJackBean.dealerString}<br />
-            Dealer score is ${blackJackBean.dealerScore}<br />
-
-            <h2>Player Hand</h2>
-            ${blackJackBean.playerString}<br />
-            Player score is ${blackJackBean.playerScore}<br />
-            <br />
-            <br />
+            <%@ include file="blackjackTable.jsp"%>
 
             <a href="/java112/blackjack?playerHit=hit&dealerHand=${blackJackBean.dealerString}&playerHand=${blackJackBean.playerString}">Hit Me!</a>
             <a href="/java112/blackjack?playerStand=stand&dealerHand=${blackJackBean.dealerString}&playerHand=${blackJackBean.playerString}">I'll Stand!</a>

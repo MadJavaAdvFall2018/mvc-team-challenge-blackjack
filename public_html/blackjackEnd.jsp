@@ -6,20 +6,7 @@
     </head>
     <body>
         <div class="cardTable">
-            <h1>BlackJack</h1>
-
-            ${blackJackBean.latestMove}<br />
-            <br />
-
-            <h2>Dealer Hand</h2>
-            ${blackJackBean.dealerString}<br />
-            Dealer score is ${blackJackBean.dealerScore}<br />
-
-            <h2>Player Hand</h2>
-            ${blackJackBean.playerString}<br />
-            Player score is ${blackJackBean.playerScore}<br />
-            <br />
-            <br />
+            <%@ include file="blackjackTable.jsp"%>
 
             <a href="/java112/blackjack">Play Again</a><br />
 
@@ -27,27 +14,27 @@
             <table>
                 <tr>
                     <td>dealerString</td>
-                    <td>${blackjackBean.dealerString}</td>
+                    <td>${blackJackBean.dealerString}</td>
                 </tr>
                 <tr>
                     <td>playerString</td>
-                    <td>${blackjackBean.playerString}</td>
+                    <td>${blackJackBean.playerString}</td>
                 </tr>
                 <tr>
                     <td>dealerScore</td>
-                    <td>${blackjackBean.dealerScore}</td>
+                    <td>${blackJackBean.dealerScore}</td>
                 </tr>
                 <tr>
                     <td>playerScore</td>
-                    <td>${blackjackBean.playerScore}</td>
+                    <td>${blackJackBean.playerScore}</td>
                 </tr>
                 <tr>
                     <td>latestMove</td>
-                    <td>${blackjackBean.latestMove}</td>
+                    <td>${blackJackBean.latestMove}</td>
                 </tr>
                 <tr>
                     <td>gameOver</td>
-                    <td>${blackjackBean.gameOver}</td>
+                    <td>${blackJackBean.gameOver}</td>
                 </tr>
             </table>
 

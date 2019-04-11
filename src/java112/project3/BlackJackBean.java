@@ -184,9 +184,9 @@ public class BlackJackBean {
         } else if (isPush()) {
             this.latestMove += "The scores are tied. Push!<br />";
         } else if (totalValueOfHand(playerHand) > totalValueOfHand(dealerHand)) {
-            this.latestMove += "Player wins with " + totalValueOfHand(playerHand);
+            this.latestMove += "Player wins with " + totalValueOfHand(playerHand) +"!";
         } else {
-            this.latestMove += "Dealer wins with " + totalValueOfHand(dealerHand);
+            this.latestMove += "Dealer wins with " + totalValueOfHand(dealerHand) + ". Better luck next time.";
         }
         this.gameOver = true;
     }
