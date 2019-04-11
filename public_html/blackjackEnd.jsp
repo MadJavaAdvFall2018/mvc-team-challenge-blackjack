@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <%-- <link href="default.css" rel="stylesheet" type="text/css" /> --%>
+        <title>Game's over, folks.</title>
     </head>
     <body>
         <div class="cardTable">
