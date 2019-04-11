@@ -2,22 +2,21 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <link href="default.css" rel="stylesheet" type="text/css" />
         <title>MVC Team Challenge</title>
     </head>
     <body>
-        <h1>Black Jack</h1>
-        <%-- <div class="dealerCards">
-            <h2>Dealer</h2>
+        <div class="" id="content">
+            <div class="" id="posts">
+                <div class="" id="post">
+                    <h2 class="title">
+                        Black Jack
+                    </h2>
+                    <a href="/java112/blackjack">
+                        Play black Jack
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="playerCards">
-            <h2>Player</h2>
-        </div> --%>
-        <div class="playerMove">
-            <a href="/java112/blackjack.jsp">
-                <button type="button" name="hit" action="/blackjack?playerMove=hit">Hit</button>
-            </a>
-            <button type="button" name="stand" action="/blackjack?playerMove=stand">Stand</button>
-        </div>
-        <%--  --%>
     </body>
 </html>
