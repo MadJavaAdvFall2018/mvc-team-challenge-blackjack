@@ -37,6 +37,8 @@
                     <td>${blackJackBean.gameOver}</td>
                 </tr>
             </table>
+            <h3>App Diagram</h3>
+            <img src="/java112/images/diagram.png" />
 
         </div>
     </body>
