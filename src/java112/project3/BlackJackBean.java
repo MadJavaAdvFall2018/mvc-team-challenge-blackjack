@@ -7,8 +7,6 @@ import java.util.*;
 
 public class BlackJackBean {
     // instance variables
-    //private int[] dealerHand;
-    //private int[] playerHand;
     private ArrayList<Integer> dealerHand;
     private ArrayList<Integer> playerHand;
     private String dealerString;
@@ -137,13 +135,17 @@ public class BlackJackBean {
         if (playerHit) {
             this.latestMove += "Player ";
             drawCard(playerHand);
+            if (isBusted(playerHand)) {
+                endGame();
+            }
         } else {
             this.latestMove += "Player stands.\n";
-            // dealer's turn, draw until busted or over 17
-            while (totalValueOfHand(dealerHand) < 17 && dealerHand.size() < 5) {
+            // dealer's turn, draw over 17 or higher than player's score
+            while (totalValueOfHand(dealerHand) < 17 && (totalValueOfHand(dealerHand) < totalValueOfHand(playerHand))) {
                 this.latestMove += "Dealer ";
                 drawCard(dealerHand);
             }
+            endGame();
         }
     }
 
