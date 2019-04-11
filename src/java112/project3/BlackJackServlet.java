@@ -25,14 +25,30 @@ public class BlackJackServlet extends HttpServlet {
      *@exception  IOException       if there is an IO failure
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BlackJackBean theBean;
 
-        // TODO get the game state from the GET
+        // get the game state from query string
+        if (request.getQueryString() != null) {
+            String playerHit = request.getParameter("playerHit");
+            String playerHand = request.getParameter("playerHand");
+            String dealerHand = request.getParameter("dealerHand");
+            theBean = new BlackJackBean(dealerHand, playerHand);
+            if (playerHit != null) {
+                theBean.nextTurn(true);
+            } else {
+                theBean.nextTurn(false);
+            }
+        } else {
+            theBean = new BlackJackBean();
+        }
 
-        BlackJackBean theBean = new BlackJackBean();
+
+
+        String url="/blackjack.jsp";
 
         request.setAttribute("blackJackBean", theBean);
 
-        String url = "/blackjack.jsp";
+
 
         RequestDispatcher dispatcher
                 = getServletContext().getRequestDispatcher(url);

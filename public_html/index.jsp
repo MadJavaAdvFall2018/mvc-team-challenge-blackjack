@@ -14,9 +14,9 @@
         </div> --%>
         <div class="playerMove">
             <a href="/java112/blackjack.jsp">
-                <button type="button" name="hit">Hit</button>
+                <button type="button" name="hit" action="/blackjack?playerMove=hit">Hit</button>
             </a>
-            <button type="button" name="stand">Stand</button>
+            <button type="button" name="stand" action="/blackjack?playerMove=stand">Stand</button>
         </div>
         <%--  --%>
     </body>

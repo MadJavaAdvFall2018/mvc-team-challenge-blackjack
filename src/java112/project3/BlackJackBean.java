@@ -7,47 +7,71 @@ import java.util.*;
 
 public class BlackJackBean {
     // instance variables
-    private int[] dealerHand;
-    private int[] playerHand;
+    //private int[] dealerHand;
+    //private int[] playerHand;
+    private ArrayList<Integer> dealerHand;
+    private ArrayList<Integer> playerHand;
+    private String dealerString;
+    private String playerString;
     private String latestMove;
     private boolean gameOver;
 
     // Constructor
 
     public BlackJackBean() {
-        this.dealerHand = new int[] {0, 0, 0, 0, 0};
-        this.playerHand = new int[] {0, 0, 0, 0, 0};
+        this.dealerHand = new ArrayList<Integer>();
+        this.playerHand = new ArrayList<Integer>();
+        this.dealerString = dealerHand.toString();
+        this.playerString = dealerHand.toString();
+        this.latestMove = "New game!";
     }
 
-    public BlackJackBean(int[] dealerHand, int[] playerHand) {
-        this.dealerHand = dealerHand;
-        this.playerHand = playerHand;
+    public BlackJackBean(String dealerHand, String playerHand) {
+        this.dealerHand = listFromString(dealerHand);
+        this.playerHand = listFromString(playerHand);
+        this.dealerString = dealerHand;
+        this.playerString = playerHand;
+        this.latestMove = "";
+    }
+
+    // constructor helper
+    public ArrayList<Integer> listFromString(String source) {
+        ArrayList<Integer> out = new ArrayList<Integer>();
+        if (source.length() > 2) {
+            source = source.substring(1, source.length() - 1); // trim brackets
+            for (String current: source.split(", ")) {
+                if (!current.isEmpty()) {
+                    out.add(Integer.parseInt(current));
+                }
+            }
+        }
+        return out;
     }
 
     // getters and setters
 
-    public int[] getDealerHand() {
+    public ArrayList<Integer> getDealerHand() {
         return this.dealerHand;
     }
 
-    public void setDealerHand(int pos, int value) {
-        this.dealerHand[pos] = value;
-    }
-
-    public int[] getPlayerHand() {
+    public ArrayList<Integer> getPlayerHand() {
         return this.playerHand;
     }
 
-    public void setPlayerHand(int pos, int value) {
-        this.playerHand[pos] = value;
+    public String getDealerString() {
+        return this.dealerString;
     }
 
-    public int getDealerCardCount() {
-        return numberOfCardsInHand(dealerHand);
+    public void setDealerString(String value) {
+        this.dealerString = value;
     }
 
-    public int getPlayerCardCount() {
-        return numberOfCardsInHand(playerHand);
+    public void setPlayerString(String value) {
+        this.playerString = value;
+    }
+
+    public String getPlayerString() {
+        return this.playerString;
     }
 
     public String getLatestMove() {
@@ -62,26 +86,18 @@ public class BlackJackBean {
         return this.gameOver;
     }
 
-    public void drawCard(int[] hand) {
+    public void drawCard(ArrayList<Integer> hand) {
         int[] deck = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         Random rando = new Random();
-        int draw = rando.nextInt(14); // pick a random card from the deck
+        int draw = rando.nextInt(13); // pick a random card from the deck
         int drawnCard = deck[draw];
         this.latestMove += "draws " + drawnCard + "\n";
-        hand[numberOfCardsInHand(hand)] = drawnCard;
+        hand.add(drawnCard);
+        this.dealerString = this.dealerHand.toString();
+        this.playerString = this.playerHand.toString();
     }
 
-    public int numberOfCardsInHand(int[] hand) {
-        int total = 0;
-        for (int current: hand) {
-            if (current > 0) {
-                total++;
-            }
-        }
-        return total;
-    }
-
-    public int totalValueOfHand(int[] hand) {
+    public int totalValueOfHand(ArrayList<Integer> hand) {
         int total = 0;
         for (int current: hand) {
             total += current;
@@ -93,7 +109,7 @@ public class BlackJackBean {
     * Checks if a hand is busted (over 21)
     * @return true if the hand's value is over 21, false if not
     */
-    public boolean isBusted(int[] hand) {
+    public boolean isBusted(ArrayList<Integer> hand) {
         if (totalValueOfHand(hand) > 21) {
             return true;
         } else {
@@ -121,11 +137,10 @@ public class BlackJackBean {
         if (playerHit) {
             this.latestMove += "Player ";
             drawCard(playerHand);
-            // TODO check if player busted or 5-carded
         } else {
             this.latestMove += "Player stands.\n";
             // dealer's turn, draw until busted or over 17
-            while (totalValueOfHand(dealerHand) < 17 && numberOfCardsInHand(dealerHand) < 5) {
+            while (totalValueOfHand(dealerHand) < 17 && dealerHand.size() < 5) {
                 this.latestMove += "Dealer ";
                 drawCard(dealerHand);
             }
@@ -133,7 +148,9 @@ public class BlackJackBean {
     }
 
     public void endGame() {
-        if (isBusted(dealerHand)) {
+        if (isBusted(playerHand)) {
+            this.latestMove += "Player busted. Oops.\n";
+        } else if (isBusted(dealerHand)) {
             this.latestMove += "Dealer busted. Player wins!\n";
         } else if (isPush()) {
             this.latestMove += "The scores are tied. Push!\n";
